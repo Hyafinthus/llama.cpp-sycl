@@ -3341,11 +3341,14 @@ class sycl_gpu_mgr {
         int get_gpu_count() { return (int)gpus.size(); }
 
         int get_index(int id) {
+            fprintf(stderr, "====gpus.size:%d\n", gpus.size());
             for (int i = 0; i < (int)gpus.size(); i++) {
-                if (gpus[i] == id)
-                    return i;
+                fprintf(stderr, "====gpus[%d]:%d\n", i, gpus[i]);
+                // if (gpus[i] == id)
+                //     return i;
             }
             printf("miss to get device index by id=%d\n", id);
+            return 0;
             GGML_ASSERT(false);
         }
 
@@ -12988,6 +12991,7 @@ void print_device_detail(int id, sycl::device &device, std::string device_type) 
             global_mem_size, device.get_info<sycl::info::device::driver_version>().c_str());
 }
 
+//
 void ggml_backend_sycl_print_sycl_devices() {
     GGML_SYCL_DEBUG("[SYCL] call ggml_backend_sycl_print_sycl_devices\n");
     int device_count = dpct::dev_mgr::instance().device_count();
@@ -17434,14 +17438,19 @@ GGML_CALL static ggml_backend_t ggml_backend_reg_sycl_init(const char * params, 
     UNUSED(params);
 }
 
+// 
 GGML_API GGML_CALL int ggml_backend_sycl_get_device_index(int device_id) {
     GGML_SYCL_DEBUG("[SYCL] call ggml_backend_sycl_get_device_index\n");
-    return g_sycl_gpu_mgr->get_index(device_id);
+    int ret = g_sycl_gpu_mgr->get_index(device_id);
+    fprintf(stderr, "====device_id:%d,device_index:%d\n", device_id, ret);
+    return ret;
 }
 
 GGML_API GGML_CALL int ggml_backend_sycl_get_device_id(int device_index) {
     GGML_SYCL_DEBUG("[SYCL] call ggml_backend_sycl_get_device_id\n");
-    return g_sycl_gpu_mgr->gpus[device_index];
+    int ret = g_sycl_gpu_mgr->gpus[device_index];
+    fprintf(stderr, "====device_index:%d,device_id:%d\n", device_index, ret);
+    return ret;
 }
 
 GGML_API GGML_CALL void ggml_backend_sycl_set_single_device_mode(int main_gpu_id) {

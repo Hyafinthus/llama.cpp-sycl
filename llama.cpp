@@ -6518,6 +6518,7 @@ static int llama_model_load(const std::string & fname, llama_model & model, llam
         }
 #endif
 
+// 
 #ifdef GGML_USE_SYCL
         if (params.split_mode == LLAMA_SPLIT_MODE_NONE) {
             ggml_backend_sycl_set_single_device_mode(params.main_gpu);

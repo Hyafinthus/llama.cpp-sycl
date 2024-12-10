@@ -613,14 +613,14 @@ if (LLAMA_SYCL)
         message(FATAL_ERROR "Invalid backend chosen, supported options are INTEL or NVIDIA")
     endif()
 
-    if ( NOT DEFINED ENV{ONEAPI_ROOT})
-        message(FATAL_ERROR "Not detect ENV {ONEAPI_ROOT}, please install oneAPI & source it, like: source /opt/intel/oneapi/setvars.sh")
-    endif()
+    # if ( NOT DEFINED ENV{ONEAPI_ROOT})
+    #     message(FATAL_ERROR "Not detect ENV {ONEAPI_ROOT}, please install oneAPI & source it, like: source /opt/intel/oneapi/setvars.sh")
+    # endif()
     #todo: AOT
 
-    find_package(IntelSYCL REQUIRED)
+    # find_package(IntelSYCL REQUIRED)
 
-    message(STATUS "SYCL found")
+    # message(STATUS "SYCL found")
 
     add_compile_definitions(GGML_USE_SYCL)
 
